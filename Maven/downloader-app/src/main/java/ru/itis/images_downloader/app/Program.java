@@ -1,7 +1,7 @@
 package ru.itis.images_downloader.app;
 
 import com.beust.jcommander.JCommander;
-import ru.itis.images_downloader.utils.ImagesDownloader;
+import ru.itis.javalab.*;
 
 import java.net.URL;
 import java.nio.file.Path;
