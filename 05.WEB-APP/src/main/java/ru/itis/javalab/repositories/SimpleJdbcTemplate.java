@@ -1,68 +1,61 @@
 package ru.itis.javalab.repositories;
 
+import lombok.AllArgsConstructor;
+import ru.itis.javalab.repositories.RowMapper;
+
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 12/10/2020 - 17:01
- * 05.WEB-APP
+ * created: 14-10-2020 - 22:14
+ * project: SemesterWorkSport
  *
  * @author dinar
  * @version v0.1
  */
+
+@AllArgsConstructor
 public class SimpleJdbcTemplate {
-    private DataSource dataSource;
 
-    public SimpleJdbcTemplate(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    DataSource dataSource;
 
-    public <T> List<T> query(String sql, RowMapper<T> rowMapper, Object ... args) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
+    public <T> List<T> selectQuery(String sql, RowMapper<T> rowMapper, Object... args) {
 
+        List<T> resultList = new ArrayList<>();
 
-        try {
-            List<T> resultList = new ArrayList<>();
-            connection = dataSource.getConnection();
-            statement = connection.prepareStatement(sql);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             for (int i = 0; i < args.length; i++) {
-                statement.setObject(i+1, args[i]);
+                preparedStatement.setObject(i + 1, args[i]);
             }
-            resultSet = statement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()) {
                 T entity = rowMapper.mapRow(resultSet);
                 resultList.add(entity);
             }
-            return resultList;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return resultList;
+    }
+
+
+    public void updateQuery(String sql, Object... args) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            for (int i = 0; i < args.length; i++) {
+                if (args[i] == null) {
+                    preparedStatement.setNull(i + 1, Types.OTHER);
+                } else {
+                    preparedStatement.setObject(i + 1, args[i]);
+                }
+            }
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new IllegalStateException();
-        } finally {
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException ignore) {
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ignore) {
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ignore) {
-                }
-            }
+            throw new IllegalStateException(e);
         }
     }
 }

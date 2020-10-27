@@ -2,7 +2,7 @@ package lesson_1.pool;
 
 public class ThreadPoolMain {
     public static void main(String[] args) {
-        ThreadPool threadPool = new ThreadPool(5);
+        ThreadPool threadPool = new ThreadPool(10);
 
         Runnable task1 = () -> {
             for (int i = 0; i <= 100; i++) {

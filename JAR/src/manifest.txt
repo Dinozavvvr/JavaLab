@@ -1,2 +1,0 @@
-Main-Class: ru.itis.images_downloader.app.Program
-

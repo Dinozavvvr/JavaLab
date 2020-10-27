@@ -33,6 +33,7 @@ public class ThreadPool {
         @Override
         public void run() {
             while (true) {
+                Runnable task = null;
                 synchronized (tasks) {
                     while (tasks.isEmpty()) {
                         try {
@@ -40,11 +41,8 @@ public class ThreadPool {
                         } catch (InterruptedException e) {
                             throw new IllegalStateException();
                         }
+                        task = tasks.pollFirst();
                     }
-                }
-                Runnable task;
-                synchronized (tasks) {
-                    task = tasks.pollFirst();
                 }
                 if (task != null) {
                     task.run();
