@@ -1,7 +1,7 @@
 package ru.itis.javalab.repositories;
 
 import lombok.AllArgsConstructor;
-import ru.itis.javalab.repositories.RowMapper;
+import ru.itis.javalab.repositories.old.RowMapper;
 
 import javax.sql.DataSource;
 import java.sql.*;

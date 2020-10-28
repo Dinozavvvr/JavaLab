@@ -5,6 +5,7 @@ import ru.itis.javalab.repositories.CookiesRepository;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,6 +24,31 @@ public class UserCookiesServiceImpl implements UserCookiesService {
     }
 
     @Override
+    public void remove(UserCookie userCookie) {
+        cookiesRepository.delete(userCookie);
+    }
+
+    @Override
+    public void update(UserCookie userCookie) {
+        cookiesRepository.update(userCookie);
+    }
+
+    @Override
+    public void removeByUserId(Long userId) {
+        cookiesRepository.deleteById(userId);
+    }
+
+    @Override
+    public List<UserCookie> getALl() {
+        return cookiesRepository.findAll();
+    }
+
+    @Override
+    public Optional<UserCookie> getByUserId(Long userId) {
+        return cookiesRepository.findById(userId);
+    }
+
+    @Override
     public Optional<UserCookie> getUserCookieByAuth(String auth) {
         return cookiesRepository.findByAuth(auth);
     }
@@ -32,7 +58,7 @@ public class UserCookiesServiceImpl implements UserCookiesService {
         String auth;
         UserCookie userCookie;
         Optional<UserCookie> cook = cookiesRepository.findById(userId);
-        if(cook.isPresent()) {
+        if (cook.isPresent()) {
             auth = cook.get().getAuth();
         } else {
             do {

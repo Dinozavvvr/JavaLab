@@ -16,7 +16,7 @@ import java.util.Optional;
  */
 public class UsersServiceImpl implements UsersService {
     private final UsersRepository usersRepository;
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public UsersServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
@@ -46,5 +46,35 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public boolean verifyPassword(String password, String securePassword) {
         return passwordEncoder.matches(password, securePassword);
+    }
+
+    @Override
+    public Optional<User> getFirstByFirstnameAndLastname(String firstName, String lastName) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<User> getAll() {
+        return usersRepository.findAll();
+    }
+
+    @Override
+    public Optional<User> getById(Long id) {
+        return usersRepository.findById(id);
+    }
+
+    @Override
+    public void update(User user) {
+        usersRepository.update(user);
+    }
+
+    @Override
+    public void removeById(Long id) {
+        usersRepository.deleteById(id);
+    }
+
+    @Override
+    public void remove(User user) {
+        usersRepository.delete(user);
     }
 }

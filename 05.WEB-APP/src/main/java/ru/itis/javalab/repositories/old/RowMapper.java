@@ -1,4 +1,4 @@
-package ru.itis.javalab.repositories;
+package ru.itis.javalab.repositories.old;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

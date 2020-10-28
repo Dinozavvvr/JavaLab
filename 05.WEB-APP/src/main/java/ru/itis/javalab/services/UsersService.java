@@ -22,4 +22,16 @@ public interface UsersService {
     String generateSecurePassword(String password);
 
     boolean verifyPassword(String password, String securePassword);
+
+    Optional<User> getFirstByFirstnameAndLastname(String firstName, String lastName);
+
+    List<User> getAll();
+
+    Optional<User> getById(Long id);
+
+    void update(User user);
+
+    void removeById(Long id);
+
+    void remove(User user);
 }

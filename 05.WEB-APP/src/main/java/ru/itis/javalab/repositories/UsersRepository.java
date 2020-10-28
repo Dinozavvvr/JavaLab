@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface UsersRepository extends CrudRepository<User> {
     List<User> findAllByAge(Integer age);
+
     Optional<User> findFirstByFirstnameAndLastname(String firstName, String lastName);
+
     Optional<User> findByUsername(String username);
 }
