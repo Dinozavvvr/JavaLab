@@ -1,5 +1,6 @@
 package ru.itis.javalab.filters;
 
+import org.springframework.context.ApplicationContext;
 import ru.itis.javalab.services.UserCookiesService;
 import ru.itis.javalab.services.UsersService;
 
@@ -28,8 +29,9 @@ public class AuthFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         ServletContext servletContext = filterConfig.getServletContext();
-        userCookiesService = (UserCookiesService) servletContext.getAttribute("userCookiesService");
-        usersService = (UsersService) servletContext.getAttribute("usersService");
+        ApplicationContext applicationContext = (ApplicationContext) servletContext.getAttribute("applicationContext");
+        userCookiesService = applicationContext.getBean(UserCookiesService.class);
+        usersService = applicationContext.getBean(UsersService.class);
     }
 
     @Override

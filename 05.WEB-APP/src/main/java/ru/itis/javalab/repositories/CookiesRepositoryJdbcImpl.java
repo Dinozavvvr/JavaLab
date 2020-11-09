@@ -3,10 +3,8 @@ package ru.itis.javalab.repositories;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import ru.itis.javalab.models.UserCookie;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,30 +35,20 @@ public class CookiesRepositoryJdbcImpl implements CookiesRepository {
     //language=SQL
     private static final String SQL_DELETE = "delete from cookie where user_id = ?";
 
-//    RowMapper<UserCookie> rowMapper = row -> UserCookie.builder()
-//            .userId(row.getLong("user_id"))
-//            .auth(row.getString("auth"))
-//            .build();
-
-    //    SimpleJdbcTemplate template;
-    private RowMapper<UserCookie> userCookieRowMapper = (row, i) -> UserCookie.builder()
+    private final RowMapper<UserCookie> userCookieRowMapper = (row, i) -> UserCookie.builder()
             .userId(row.getLong("user_id"))
             .auth(row.getString("auth"))
             .build();
 
-    private SimpleJdbcInsert simpleJdbcInsert;
-    private JdbcTemplate jdbcTemplate;
-    private DataSource dataSource;
+    private final JdbcTemplate jdbcTemplate;
 
-    public CookiesRepositoryJdbcImpl(DataSource dataSource) {
-        this.dataSource = dataSource;
-        jdbcTemplate = new JdbcTemplate(dataSource);
-        simpleJdbcInsert = new SimpleJdbcInsert(dataSource).withTableName("cookie").usingColumns("user_id", "auth");
+    public CookiesRepositoryJdbcImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
     public Optional<UserCookie> findByAuth(String auth) {
-//        return template.selectQuery(SQL_SELECT_USER_COOKIE_BY_AUTH, rowMapper, auth).stream().findAny();
+
         UserCookie userCookie;
         try {
             userCookie = jdbcTemplate.queryForObject(SQL_SELECT_BY_AUTH, userCookieRowMapper, auth);
@@ -77,7 +65,9 @@ public class CookiesRepositoryJdbcImpl implements CookiesRepository {
 
     @Override
     public Optional<UserCookie> findById(Long id) {
+
 //        return template.selectQuery(SQL_SELECT_BY_ID, rowMapper, id).stream().findAny();
+
         UserCookie userCookie;
         try {
             userCookie = jdbcTemplate.queryForObject(SQL_SELECT_BY_ID, userCookieRowMapper, id);
@@ -89,7 +79,7 @@ public class CookiesRepositoryJdbcImpl implements CookiesRepository {
 
     @Override
     public void save(UserCookie entity) {
-//        template.updateQuery(SQL_INSERT_USER_COOKIE, entity.getUserId(), entity.getAuth());
+
         jdbcTemplate.update(SQL_INSERT_USER_COOKIE, entity.getUserId(), entity.getAuth());
     }
 

@@ -1,5 +1,6 @@
 package ru.itis.javalab.servlets;
 
+import org.springframework.context.ApplicationContext;
 import ru.itis.javalab.models.User;
 import ru.itis.javalab.services.UserCookiesService;
 import ru.itis.javalab.services.UsersService;
@@ -21,6 +22,7 @@ import java.util.Optional;
  * @author dinar
  * @version v0.1
  */
+
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     UserCookiesService userCookiesService;
@@ -29,8 +31,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
         ServletContext servletContext = servletConfig.getServletContext();
-        userCookiesService = (UserCookiesService) servletContext.getAttribute("userCookiesService");
-        usersService = (UsersService) servletContext.getAttribute("usersService");
+        ApplicationContext applicationContext = (ApplicationContext) servletContext.getAttribute("applicationContext");
+        userCookiesService = applicationContext.getBean(UserCookiesService.class);
+        usersService = applicationContext.getBean(UsersService.class);
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

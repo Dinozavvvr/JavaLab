@@ -2,6 +2,7 @@ package ru.itis.javalab.servlets;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.context.ApplicationContext;
 import ru.itis.javalab.models.User;
 import ru.itis.javalab.repositories.UsersRepository;
 import ru.itis.javalab.repositories.UsersRepositoryJdbcImpl;
@@ -23,7 +24,8 @@ public class UsersServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         ServletContext servletContext = config.getServletContext();
-        usersRepository = (UsersRepository) servletContext.getAttribute("usersRepository");
+        ApplicationContext applicationContext = (ApplicationContext) servletContext.getAttribute("applicationContext");
+        usersRepository = applicationContext.getBean(UsersRepository.class);
         System.out.println(usersRepository);
 
     }
