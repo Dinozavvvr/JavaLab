@@ -48,7 +48,13 @@ public class LoginServlet extends HttpServlet {
         Optional<User> user = usersService.getByUsername(username);
 
         if(user.isPresent() && usersService.verifyPassword(password, user.get().getPassword())) {
+            // this part for cookie
             userCookiesService.addCookie(user.get().getId(), response);
+
+            // this part for session
+            request.getSession().setAttribute("isValid","valid");
+
+            // redirect
             response.sendRedirect("/profile");
         } else {
             response.sendRedirect("/login");
