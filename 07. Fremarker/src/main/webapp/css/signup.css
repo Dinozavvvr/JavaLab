@@ -1,0 +1,135 @@
+@import "reset.css";
+
+body {
+    height: 100%;
+    width: 100%;
+
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+#wrapper {
+    min-height: inherit;
+    min-width: inherit;
+}
+
+.main {
+    min-height:calc(100vh - 120px);
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.form {
+    margin-top: 115px;
+    width: 350px;
+}
+
+.main__content {
+}
+
+.form__title {
+    font-size: 36px;
+    margin-bottom: 44px;
+    text-align: center;
+}
+
+.form__input {
+    width: 100%;
+    height: 60px;
+    margin-bottom: 14px;
+    display: block;
+    border: 2px solid #191970;
+    outline: 2px solid #191970;
+    outline-offset: -2px;
+
+    padding: 0 20px;
+    font-size: 24px;
+    caret-color: transparent;
+
+}
+
+.form__input:hover {
+    transition: 0.2s all ease;
+    outline-offset: 2px;
+}
+
+.form__input:focus {
+    transform: translate(6px, 6px);
+    color: #ffffff;
+    background: #191970;
+    outline: none;
+    box-shadow:  -6px -6px 0 #ffffff, -6px -6px 0 1px #191970;
+}
+
+.form__input:focus::placeholder {
+    color: #F8E359;
+}
+
+
+.form__input::placeholder {
+    font-weight: normal;
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Montserrat Alternates';
+}
+
+a.form__link {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 34px;
+}
+
+a.form__link:hover {
+    color: #617FC0;
+}
+
+.form__submit {
+    transition: 0.5s all ease;
+    font-size: 24px;
+
+    display: block;
+    margin: auto;
+    width: 260px;
+    height: 60px;
+    background: #F8E359;
+}
+
+.form__submit:hover {
+    transform: translate(6px,6px);
+    box-shadow: -6px -6px 0 #191970;
+}
+
+label {
+    display: block;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 14px;
+    border: 2px solid #191970;
+    line-height: 60px;
+    cursor: pointer;
+    outline: 2px solid #191970;
+    outline-offset: -2px;
+}
+
+label:hover {
+    transition: 0.2s all ease;
+    outline-offset: 2px;
+}
+
+.form__checkbox {
+    display: none;
+}
+
+.form__checkbox:checked~label{
+    background: #191970;
+    color: #F8E359;
+}
+
+input[type="password"] {
+    font:small-caption;
+    font-size:24px
+}
