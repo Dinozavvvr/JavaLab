@@ -18,7 +18,7 @@ import java.io.IOException;
  * @author dinar
  * @version v0.1
  */
-@WebFilter("/*")
+//@WebFilter("/*")
 public class AuthFilter implements Filter {
 
     private static final String AUTH = "auth";
