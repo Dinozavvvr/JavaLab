@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--links -->
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/signup.css">
+    <link rel="stylesheet" href="../css/edit.css">
+    <!--script-->
+    <script>
+        function showBlock(id) {
+            document.getElementById(id).style.display = "block";
+            return true;
+        }
+
+        function hideBlock(id) {
+            document.getElementById(id).style.display = "none"
+            return true;
+        }
+
+        function next() {
+
+            let currentItem = document.getElementsByClassName('currentItem')[0];
+            currentItem.classList.remove('currentItem');
+
+            let currentItemId = Number(currentItem.id);
+            document.getElementById('arrow').classList.remove('reverse');
+
+            let nextItemId;
+            if (document.getElementById(currentItemId + 1) !== null) {
+                nextItemId = currentItemId + 1;
+                if (document.getElementById(currentItemId + 2) === null) {
+                    document.getElementById('arrow').classList.add('reverse');
+                }
+            } else {
+                nextItemId = currentItemId - 1;
+            }
+
+            showBlock(nextItemId);
+            hideBlock(currentItemId);
+            document.getElementById(nextItemId).classList.add('currentItem');
+
+        }
+
+        let loadFile = function (event) {
+            let output = document.getElementById('preview');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+                URL.revokeObjectURL(output.src);
+            }
+        }
+    </script>
+    <title>Fivegram</title>
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navigation">
+        <ul>
+            <li class="current"><a href="#" class="navigation__link">account</a></li>
+            <li><a href="#" class="navigation__link">posts</a></li>
+            <li><a href="#" class="navigation__link">logout</a></li>
+            <li><a href="#" class="navigation__link logo">Fivegram</a></li>
+        </ul>
+    </nav>
+    <div class="main">
+        <div class="main__content">
+            <form action="/signin" method="post" class="main__form form">
+                <p class="form__title">edit profile</p>
+                <div class="image__wrapper">
+                    <img class="form__image" src="../images/justin.jpg" alt="your image" id="preview">
+                    <label for="image"></label>
+                </div>
+                <input type="file" accept="image/jpeg" name="image" id="image" onchange="loadFile(event)">
+                <input type="text" class="form__input" name="login" placeholder="new login">
+                <input type="text" class="form__input" name="email" placeholder="new email">
+                <div class="change-password-wrapper">
+                    <button type="button" class="form__change-password form__input currentItem"
+                            onclick="next(); showBlock('arrow')" id="1">
+                        change password
+                    </button>
+                    <input type="password" class="form__input current_password error" name="current_password" id="2"
+                           placeholder="current password">
+                    <input type="password" class="form__input new_password" name="new_password" id="3"
+                           placeholder="new password">
+                    <input type="password" class="form__input confirm_password great" name="confirm_password" id="4"
+                           placeholder="confirm password">
+                    <div id="arrow" class="arrow" onclick="next();"></div>
+                </div>
+                <button class="form__submit" type="submit">
+                    sign up
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        <ul>
+            <li><a href="#" class="footer_link">about us</a></li>
+            <li><a href="#" class="footer_link">facebook</a></li>
+            <li><a href="#" class="footer_link">vk</a></li>
+            <li><a href="#" class="footer_link">FG company</a></li>
+            <li><a href="#" class="footer_link">since 2020</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package ru.itis.javalab.repositories;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -35,7 +36,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
     private static final String SQL_DELETE_BY_ID = "delete from \"user\" where id = ?";
 
     //language=SQL
-    private static final String SQL_UPDATE_ALL = "update \"user\" set username = ?, first_name = ?, last_name = ?, password = ? where id = ?";
+    private static final String SQL_UPDATE_ALL = "update \"user\" set username = ?, first_name = ?, last_name = ?, password = ?, is_deleted = ? where id = ?";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -45,6 +46,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
             .username(row.getString("username"))
             .firstName(row.getString("first_name"))
             .lastName(row.getString("last_name"))
+            .isDeleted(row.getBoolean("is_deleted"))
             .build();
 
     public UsersRepositoryJdbcImpl(JdbcTemplate jdbcTemplate) {
@@ -94,7 +96,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
         User user;
         try {
             user = jdbcTemplate.queryForObject(SQL_SELECT_BY_ID, jdbcUserRowMapper, id);
-        } catch (EmptyResultDataAccessException e) {
+        } catch (DataAccessException e) {
             user = null;
         }
         return Optional.ofNullable(user);
@@ -130,6 +132,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
                 entity.getFirstName(),
                 entity.getLastName(),
                 entity.getPassword(),
+                entity.getIsDeleted(),
                 entity.getId());
     }
 

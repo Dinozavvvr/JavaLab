@@ -1,0 +1,171 @@
+.form__submit {
+    margin-top: 28px;
+}
+
+.change-password-wrapper {
+    position: relative;
+}
+
+.form__change-password {
+    color: #F8E359;
+    background: #191970;
+}
+
+.form__change-password:focus {
+    transform: none;
+    box-shadow: none;
+}
+
+.current_password,
+.new_password,
+.confirm_password {
+    display: none;
+}
+
+.arrow {
+    transition: 0.3s background-color ease;
+    display: none;
+    cursor: pointer;
+    border-radius: 50%;
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    background: rgba(0, 0, 0, .2);
+
+    right: -50px;
+    top: 10px;
+}
+
+.form__input:focus ~ .arrow {
+    transition: 0.3s all ease;
+    transform: translate(6px, 6px);
+    box-shadow: -6px -6px 0 #191970;
+}
+
+.arrow:hover {
+    background: rgba(1, 0, 121, 0.7);
+}
+
+.arrow:after {
+    transition: 0.3s transform ease;
+    position: absolute;
+    content: '';
+    width: 16px;
+    height: 2px;
+    border-radius: 2px;
+    background: white;
+    transform: rotate(40deg);
+    top: 14px;
+    left: 13px;
+}
+
+.arrow:before {
+    transition: 0.3s transform ease;
+    position: absolute;
+    content: '';
+    width: 16px;
+    height: 2px;
+    background: white;
+    transform: rotate(-40deg);
+    bottom: 14px;
+    left: 13px;
+}
+
+.error:focus {
+    box-shadow: -6px -6px 0 #D30000;
+    background: #ffffff;
+    color: #000000;
+}
+
+.form__input.error::placeholder,
+.form__input.great::placeholder
+{
+    color: #919090;
+}
+
+.great:focus {
+    box-shadow: -6px -6px 0 #0C9C00;
+    background: #ffffff;
+    color: #000000;
+}
+
+.arrow.reverse:after {
+    transform: rotate(-40deg);
+    left: 10px;
+}
+.arrow.reverse:before {
+    transform: rotate(40deg);
+    left: 10px;
+}
+
+.form__image {
+    object-fit: cover;
+    display: block;
+    width: 196px;
+    height: 196px;
+    border-radius: 50%;
+    margin: 0 auto 32px auto;
+}
+
+
+.form {
+    margin-bottom: 100px;
+    margin-top: 50px;
+}
+
+.image__wrapper {
+    max-width: 196px;
+    margin: 0 auto;
+    position: relative;
+}
+
+label {
+    transition: 0.5s all ease;
+    position: absolute;
+    outline: none;
+    width: 196px;
+    height: 196px;
+    border-radius: 50%;
+    border: none;
+    top: 0;
+}
+
+label:after {
+    transition: 0.3s all ease;
+    position: absolute;
+    content: '';
+    width: 60px;
+    height: 5px;
+    background: white;
+    border-radius: 3px;
+    top: 92px;
+    left: 68px;
+    opacity: 0;
+}
+
+label:before {
+    transition: 0.3s all ease;
+    position: absolute;
+    content: '';
+    width: 5px;
+    height: 60px;
+    background: white;
+    border-radius: 3px;
+    top: 66px;
+    left: 96px;
+    opacity: 0;
+}
+
+label:hover {
+    transition: 0.5s all ease;
+    background: rgba(0,0,0, .5);
+}
+
+label:hover:after,
+label:hover:before {
+    opacity: 1;
+}
+
+#image {
+    display: none;
+}
