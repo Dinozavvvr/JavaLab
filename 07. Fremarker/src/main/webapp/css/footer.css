@@ -1,0 +1,34 @@
+.footer {
+    background: #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+}
+
+.footer_link:link,
+.footer_link:visited {
+    color: #fff;
+
+}
+
+.footer ul {
+    display: flex;
+}
+
+.footer li {
+    margin-right: 20px;
+}
+
+.footer li:last-child {
+    margin-right: 0;
+}
+
+.footer_link:link {
+    font-size: 14px;
+}
+
+.footer_link:hover {
+    color: #F8E359;
+}

@@ -1,0 +1,145 @@
+@import "reset.css";
+
+body {
+    height: 100%;
+    width: 100%;
+
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+#wrapper {
+    min-height: inherit;
+    min-width: inherit;
+}
+
+.main {
+    min-height:calc(100vh - 120px);
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    margin: 20px 0;
+    position: relative;
+    width: 628px;
+}
+
+.card {
+    max-width: 350px;
+    padding: 12px;
+    height: 440px;
+    background: #000;
+}
+
+.card__image {
+    width: 325px;
+    height: 325px;
+    object-fit: cover;
+}
+
+.card__info {
+    font-size: 12px;
+    margin-top: 8px;
+    color: #fff;
+}
+
+.card__info li {
+    margin-bottom: 2px;
+}
+.card__info li:last-child {
+    color: #919090;
+    margin-top: 44px;
+}
+
+.form.card {
+    background: #191970;
+}
+
+.form {
+    width: 350px;
+    right: 0;
+    top: 115px;
+    position: absolute;
+}
+
+.form__inputs {
+    margin-top: 8px;
+}
+
+.form__input {
+    width: 100%;
+    font-size: 14px;
+    background: none;
+    color: #fff;
+}
+
+.form__input::placeholder {
+    color: #fff;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-input-label {
+    position: absolute;
+    top: 55%;
+    left: 38%;
+    font-weight: normal;
+    font-size: 14px;
+    color: #191970;
+    cursor: pointer;
+}
+
+.file-input-label:before {
+    position: absolute;
+    content: url("../images/plus.svg");
+    top: -120px;
+    left: -16px;
+}
+
+.file-input-label:hover:before {
+    content: url("../images/plus-hover.svg");
+}
+
+.form__submit {
+    position: relative;
+    background: #F8E359;
+    font-weight: normal;
+    font-size: 24px;
+
+    width: 263px;
+    height: 100px;
+    margin-top: 15px;
+
+    transition: 0.3s all ease;
+}
+
+.form__submit:hover {
+    transform: translate(6px, 6px);
+    box-shadow: -6px -6px 0 #191970;
+}
+
+
+.person {
+    position: absolute;
+    color: #ffffff;
+    margin: 8px;
+}
+
+.active:before {
+    display: none;
+}
+
+.active {
+    transition: 0.3s color ease;
+    color: #fff;
+    top: unset;
+    bottom: 8px;
+    left: 12px;
+}
+
+.active:hover {
+    color: #F8E359;
+}
