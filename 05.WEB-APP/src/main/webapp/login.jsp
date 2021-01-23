@@ -8,7 +8,9 @@
     <title>Login</title>
 </head>
 <body>
+<h1>${_csrf_token}</h1>
     <form action="/login" method="POST">
+        <input type="hidden" value="${_csrf_token}" name="_csrf_token">
         <label for="username">Name</label><br>
         <input type="text" name="username" id="username"><br>
         <label for="password">Password</label><br>

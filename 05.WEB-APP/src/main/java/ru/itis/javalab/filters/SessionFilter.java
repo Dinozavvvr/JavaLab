@@ -15,7 +15,7 @@ import java.io.IOException;
  * @author dinar
  * @version v0.1
  */
-@WebFilter(urlPatterns = {"/*"})
+
 public class SessionFilter implements Filter {
 
     @Override

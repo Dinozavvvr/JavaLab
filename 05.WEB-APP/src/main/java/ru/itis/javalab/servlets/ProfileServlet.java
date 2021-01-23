@@ -19,7 +19,7 @@ import java.io.Writer;
 public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Writer writer = response.getWriter();
-        writer.write("<h1>Profile</h1>");
+        request.getServletContext().getRequestDispatcher("/profile.jsp")
+                .forward(request, response);
     }
 }

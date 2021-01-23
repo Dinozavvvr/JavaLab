@@ -25,6 +25,7 @@ import java.util.Optional;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+
     UserCookiesService userCookiesService;
     UsersService usersService;
 
@@ -37,7 +38,7 @@ public class LoginServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getServletContext().getRequestDispatcher("/login.html").forward(request, response);
+        request.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
     @Override
@@ -47,7 +48,10 @@ public class LoginServlet extends HttpServlet {
 
         Optional<User> user = usersService.getByUsername(username);
 
-        if(user.isPresent() && usersService.verifyPassword(password, user.get().getPassword())) {
+        if(user.isPresent() && usersService.verifyPassword(password, user.get().getPassword())
+                && !user.get().getIsDeleted()) {
+            request.getSession().setAttribute("user_id", user.get().getId());
+
             // this part for cookie
             userCookiesService.addCookie(user.get().getId(), response);
 
