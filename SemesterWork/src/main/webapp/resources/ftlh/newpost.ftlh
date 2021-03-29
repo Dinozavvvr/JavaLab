@@ -1,16 +1,18 @@
+<#ftl encoding="UTF-8"/>
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:form="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!--links -->
-    <link rel="stylesheet" href="../css/nav.css">
-    <link rel="stylesheet" href="../css/footer.css">
-    <link rel="stylesheet" href="../css/newpost.css">
+    <link rel="stylesheet" href="/resources/css/nav.css">
+    <link rel="stylesheet" href="/resources/css/footer.css">
+    <link rel="stylesheet" href="/resources/css/newpost.css">
     <!--script-->
-    <script src="../js/newpost.js"></script>
+    <script src="/resources/js/newpost.js"></script>
     <title>Fivegram</title>
 </head>
 <body>
@@ -28,21 +30,21 @@
             <div class="content__card card">
                 <div class="card__body">
                     <span class="person">
-                        Justin
+                        ${examplePost.people}
                     </span>
-                    <img src="../images/justin.jpg" alt="image" class="card__image">
+                    <img src="/media?name=${examplePost.fileName}" alt="image" class="card__image">
                     <ul class="card__info">
-                        <li>Hew York, Center street</li>
-                        <li>It was the best experience in my life</li>
+                        <li>${examplePost.place}</li>
+                        <li>${examplePost.description}</li>
                         <li>Show comments</li>
                     </ul>
                 </div>
             </div>
-            <form action="/posting" method="post" class="content__form form card" id="form" enctype="multipart/form-data">
+            <form action="/post?${_csrf.parameterName}=${_csrf.token}" method="post" class="content__form form card" id="form" enctype="multipart/form-data" accept-charset="UTF-8">
                 <div class="card__body">
-                    <img src="../images/Rectangle.jpg" alt="image" class="card__image" id="preview">
+                    <img src="/resources/images/Rectangle.jpg" alt="image" class="card__image" id="preview">
                     <label class="file-input-label" for="image" id="file-label">add photo</label>
-                    <input type="file" class="file-input" id="image" name="image" onchange="loadFile(event)" accept="image/png, image/jpeg">
+                    <input type="file" class="file-input" id="image" name="file" onchange="loadFile(event)" accept="image/png, image/jpeg">
                     <ul class="form__inputs">
                         <li><input class="form__input" type="text" placeholder="Place" name="place" id="place"></li>
                         <li><input class="form__input" type="text" placeholder="Description" name="description" id="description"></li>
