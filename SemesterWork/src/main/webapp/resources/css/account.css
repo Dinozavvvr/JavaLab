@@ -140,6 +140,7 @@ a.profile__link:hover {
     bottom: -50%;
     right: -50%;
     margin: auto;
+    object-fit: cover;
 }
 
 .item-wrapper {

@@ -2,6 +2,7 @@ package ru.itis.javalab.interceptors;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,4 +53,20 @@ public class CsrfInterceptor implements HandlerInterceptor {
         return false;
     }
 
+    @Override
+    public void postHandle(HttpServletRequest request,
+                           HttpServletResponse response,
+                           Object handler,
+                           ModelAndView modelAndView) throws Exception {
+        if (request.getAttribute("_csrf_token") == null) {
+
+            String csrf = String.valueOf(UUID.randomUUID());
+
+            request.setAttribute("_csrf_token", csrf);
+            Set<String> csrfSet = (Set<String>) request.getSession().getAttribute("_csrf_token_set");
+
+            csrfSet.add(csrf);
+            request.getSession().setAttribute("_csrf_token_set", csrfSet);
+        }
+    }
 }
