@@ -1,0 +1,41 @@
+POST http://localhost:8080/api/0.1/signup
+Content-Type: application/json
+
+{
+  "email": "dinar@gmail.com",
+  "name": "dinar",
+  "surname": "shagaliev",
+  "password": "dinar123"
+}
+###
+
+POST http://localhost:8080/api/0.1/login
+Content-Type: application/json
+
+{
+  "email": "dinar@gmail.com",
+  "password": "dinar123",
+  "deviceFingerprint": "idea"
+}
+
+###
+
+GET http://localhost:8080/api/0.1/profile
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJzdGF0ZSI6IkFDVElWRSIsImlkIjoxLCJleHAiOjE2MTg3Nzg0ODMsImlhdCI6MTYxODc3NjY4MywiZW1haWwiOiJkaW5hckBnbWFpbC5jb20ifQ.L8-iDqDDR0m_dcKNVLGNqSUEy3Om9Y7T2SsNklMW4Xg
+
+###
+
+GET http://localhost:8080/api/0.1/refresh_tokens
+Content-Type: application/json
+
+{
+  "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJzdGF0ZSI6IkFDVElWRSIsImlkIjoxLCJleHAiOjE2MTg3NzkyNTIsImlhdCI6MTYxODc3NzQ1MiwiZW1haWwiOiJkaW5hckBnbWFpbC5jb20ifQ.df1GV6mozp5a0xuabOPXjoIzfR6Y5H9cKZXUxA4Z44o",
+  "refreshToken": "62b22d97-ac91-478a-8a85-fe9927c7f32e",
+  "deviceFingerprint": "idea"
+}
+
+###
+
+
+#  "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJzdGF0ZSI6IkFDVElWRSIsImlkIjoxLCJleHAiOjE2MTg3Nzc1MzMsImlhdCI6MTYxODc3NTczMywiZW1haWwiOiJkaW5hckBnbWFpbC5jb20ifQ.N7NVYLiTB4M3pduqBXAUz0uhlOLQuZeNv639Od13bPU",
+#  "refreshToken": "daa5f205-8268-4b3b-b3f2-92d0f4f5a4ed"
