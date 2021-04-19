@@ -6,6 +6,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.itis.springboot.dto.TokenPairDto;
 import ru.itis.springboot.dto.TokensRefreshDto;
@@ -13,11 +14,11 @@ import ru.itis.springboot.exceptions.InvalidRefreshTokenException;
 import ru.itis.springboot.models.RefreshToken;
 import ru.itis.springboot.models.User;
 import ru.itis.springboot.repositories.TokenRepository;
+import ru.itis.springboot.repositories.UsersRepository;
 import ru.itis.springboot.security.utils.JwtTokenUtils;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -34,6 +35,9 @@ public class TokenServiceImpl implements TokenService {
     @Autowired
     private TokenRepository tokenRepository;
 
+    @Autowired
+    private UsersRepository usersRepository;
+
     @Override
     public String generateAccessToken(User user) {
         return JWT.create()
@@ -49,18 +53,26 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public TokenPairDto generateTokenPair(User user, String fingerprint) {
+    public RefreshToken generateRefreshToken(User user, String fingerprint) {
         String refreshTokenToken = UUID.randomUUID().toString();
         RefreshToken refreshToken = RefreshToken.builder()
                 .userId(user.getId())
                 .fingerprint(fingerprint)
                 .token(refreshTokenToken)
+                .issuedAt(new Date())
+                .expiresAt(
+                        new Date(System.currentTimeMillis() + JwtTokenUtils.REFRESH_TOKEN_LIFE_TIME))
                 .build();
 
         tokenRepository.save(refreshToken);
-        String accessToken = generateAccessToken(user);
+        return refreshToken;
+    }
 
-        return new TokenPairDto(accessToken, refreshTokenToken);
+    @Override
+    public TokenPairDto generateTokenPair(User user, String fingerprint) {
+        String accessToken = generateAccessToken(user);
+        String refreshToken = generateRefreshToken(user, fingerprint).getToken();
+        return new TokenPairDto(accessToken, refreshToken);
     }
 
     @Override
@@ -88,24 +100,24 @@ public class TokenServiceImpl implements TokenService {
         RefreshToken refreshToken = tokenRepository.findByToken(tokenPair.getRefreshToken())
                 .orElseThrow(() -> new InvalidRefreshTokenException(tokenPair.getRefreshToken()));
 
-        if (!refreshToken.getFingerprint()
-                .equals(tokenPair.getDeviceFingerprint())) {
+        /* refresh token validation */
+        if (!refreshToken.getFingerprint().equals(tokenPair.getDeviceFingerprint())
+                || refreshToken.getExpiresAt().before(new Date())) {
             throw new InvalidRefreshTokenException(tokenPair.getRefreshToken());
         }
 
         Map<String, Claim> claims = getClaims(tokenPair.getAccessToken());
 
-        User user = User.builder()
-                .id(claims.get(JwtTokenUtils.ID).asLong())
-                .email(claims.get(JwtTokenUtils.EMAIL).asString())
-                .state(claims.get(JwtTokenUtils.STATE).as(User.State.class))
-                .role(claims.get(JwtTokenUtils.ROLE).as(User.Role.class))
-                .build();
-
+        User user = usersRepository.findById(claims.get(JwtTokenUtils.ID).asLong())
+                .orElseThrow(() -> new UsernameNotFoundException("user with id not found"));
         String newAccessToken = generateAccessToken(user);
         String newRefreshToken = UUID.randomUUID().toString();
 
         refreshToken.setToken(newRefreshToken);
+        refreshToken.setIssuedAt(new Date());
+        refreshToken.setExpiresAt(
+                new Date(System.currentTimeMillis() + JwtTokenUtils.REFRESH_TOKEN_LIFE_TIME));
+
         tokenRepository.save(refreshToken);
 
         return TokenPairDto.builder()
