@@ -21,7 +21,7 @@ Content-Type: application/json
 ###
 
 GET http://localhost:8080/api/0.1/profile
-Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJzdGF0ZSI6IkFDVElWRSIsImlkIjoxLCJleHAiOjE2MTg3Nzg0ODMsImlhdCI6MTYxODc3NjY4MywiZW1haWwiOiJkaW5hckBnbWFpbC5jb20ifQ.L8-iDqDDR0m_dcKNVLGNqSUEy3Om9Y7T2SsNklMW4Xg
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJzdGF0ZSI6IkFDVElWRSIsImlkIjoxLCJleHAiOjE2MTg4MTU4NTYsImlhdCI6MTYxODgxNDA1NiwiZW1haWwiOiJkaW5hckBnbWFpbC5jb20ifQ.7qVtTARYAaHNDJ5nvYbiSTL5BZUtZavUucao1NUArDw
 
 ###
 
@@ -29,8 +29,8 @@ GET http://localhost:8080/api/0.1/refresh_tokens
 Content-Type: application/json
 
 {
-  "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJzdGF0ZSI6IkFDVElWRSIsImlkIjoxLCJleHAiOjE2MTg3NzkyNTIsImlhdCI6MTYxODc3NzQ1MiwiZW1haWwiOiJkaW5hckBnbWFpbC5jb20ifQ.df1GV6mozp5a0xuabOPXjoIzfR6Y5H9cKZXUxA4Z44o",
-  "refreshToken": "62b22d97-ac91-478a-8a85-fe9927c7f32e",
+  "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJzdGF0ZSI6IkFDVElWRSIsImlkIjoxLCJleHAiOjE2MTg4MTU4NTYsImlhdCI6MTYxODgxNDA1NiwiZW1haWwiOiJkaW5hckBnbWFpbC5jb20ifQ.7qVtTARYAaHNDJ5nvYbiSTL5BZUtZavUucao1NUArDw",
+  "refreshToken": "24790500-fec7-4fb6-ab72-57b717087e41",
   "deviceFingerprint": "idea"
 }
 
